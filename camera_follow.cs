@@ -12,6 +12,7 @@ public class camera_follow : MonoBehaviour
     private bool turnright = false;
     
     public float angle = 0;
+    
     //0 facing -x
     //90 facing +z
     //180 facing +x
@@ -55,7 +56,6 @@ public class camera_follow : MonoBehaviour
         {
             transform.position = player_pos.position + new Vector3(0, height_offset,gap_offset);
         }
-             
     }
 }
 // using UnityEngine;

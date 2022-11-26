@@ -9,19 +9,20 @@ public class movement : MonoBehaviour
     private float gravity = -3f;
     private float angle = 0;
 
-    private float jump_speed = 9f;
+    // private float jump_speed = 3f;
+    // float height = 9f;
     //0 facing -x
     //90 facing +z
     //180 facing +x
     //270 facing -z
     // Start is called before the first frame update
 
-    public void move_forward()
+    public void move_forward(int side)
     {
-        if(angle == 0)move_direction.x = -1;
-        else if(angle == 90)move_direction.z = 1;
-        else if(angle == 180) move_direction.x = 1;
-        else move_direction.z = -1;
+        if(angle == 0)move_direction.x = -1*side;
+        else if(angle == 90)move_direction.z = 1*side;
+        else if(angle == 180) move_direction.x = 1*side;
+        else move_direction.z = -1*side;
     }
     //move side is by default right;
     public void move_side(int side)
@@ -32,7 +33,7 @@ public class movement : MonoBehaviour
         else move_direction.x = -1*side;
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private Animator animator_control;
+    public Animator animator_control;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void Start()
     {
@@ -73,7 +74,12 @@ public class movement : MonoBehaviour
 
             if(Input.GetKey("w"))
             {
-                move_forward();
+                move_forward(1);
+                is_moving = true;
+            }
+            else if(Input.GetKey("s"))
+            {
+                move_forward(-1);
                 is_moving = true;
             }
 
@@ -89,11 +95,13 @@ public class movement : MonoBehaviour
             animator_control.SetBool("is_moving", is_moving);
             animator_control.SetBool("is_jumping", jump_flag);
             
+            
         }       
-                
+
+            
         move_direction = Vector3.zero;
         move_direction.y += gravity;
-        if(!stop)controller.Move(move_direction*Time.deltaTime);
+        if(!stop)controller.Move(move_direction);
         
         
         
