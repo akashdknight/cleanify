@@ -1,66 +1,3 @@
-
-// using UnityEngine;
-
-// public class movement : MonoBehaviour
-// {   
-//     public Rigidbody player;
-//     float force = 50f;
-//     float sideforce = 25f;
-//     float angle = 0;
-//     //0 facing -x
-//     //90 facing +z
-//     //180 facing +x
-//     //270 facing -z
-    
-//     public void move_forward()
-//     {
-//         if(angle == 0)player.AddForce(-force,0, 0);
-//         else if(angle == 90)player.AddForce(0,0,force);
-//         else if(angle == 180)player.AddForce(force,0,0);
-//         else player.AddForce(0,0,-force);
-//     }
-//     //by default right keliye, left keliye negative force pass karo.
-//     public void move_side(float side_force)
-//     {
-//         if(angle == 0)player.AddForce(0,0,side_force);
-//         else if(angle == 90)player.AddForce(side_force, 0, 0);
-//         else if(angle == 180)player.AddForce(0,0,-side_force);
-//         else player.AddForce(-side_force, 0, 0);
-//     }
-
-
-//     // Start is called before the first frame update
-//     void Start()
-//     {
-        
-//     }
-
-//     void Update()
-//     {
-//         angle = FindObjectOfType<camera_follow>().angle;
-//     }
-   
-    
-//     // Update is called once per frame
-//     void FixedUpdate()
-//     {
-//         if(Input.GetKey("w"))
-//         {
-//             move_forward();
-//         }
-//         if(Input.GetKey("a"))
-//         {
-//             move_side(-sideforce);
-//         }
-//         if(Input.GetKey("d"))
-//         {
-//             move_side(sideforce);
-//         }
-        
-//     }
-// }
-
-
 using UnityEngine;
 
 public class movement : MonoBehaviour
@@ -69,8 +6,10 @@ public class movement : MonoBehaviour
     private float speed = 10f;
     private CharacterController controller;
     private Vector3 move_direction = Vector3.zero;
-    private float gravity = -3;
+    private float gravity = -3f;
     private float angle = 0;
+
+    private float jump_speed = 9f;
     //0 facing -x
     //90 facing +z
     //180 facing +x
@@ -106,17 +45,21 @@ public class movement : MonoBehaviour
     {
         turnLeft = Input.GetKeyDown(KeyCode.LeftArrow);
         turnRight = Input.GetKeyDown(KeyCode.RightArrow);
+        if (turnLeft)transform.Rotate(new Vector3(0f, -90f, 0f));               
+        else if (turnRight)transform.Rotate(new Vector3(0f, 90f, 0f)); 
+
         stop = Input.GetKeyDown(KeyCode.S);
 
         angle = FindObjectOfType<camera_follow>().angle;
         move_direction = Vector3.zero;
+
+        bool jump_flag = false;
         if(controller.isGrounded)
         {   
             
-            if (turnLeft)transform.Rotate(new Vector3(0f, -90f, 0f));               
-            else if (turnRight)transform.Rotate(new Vector3(0f, 90f, 0f));              
+                         
             bool is_moving = false;  // boolean flag to check whether player is moving or not (animation transition)
-
+            jump_flag = false;
             if(Input.GetKey("a"))
             {
                 move_side(-1);
@@ -133,17 +76,27 @@ public class movement : MonoBehaviour
                 move_forward();
                 is_moving = true;
             }
+
+            move_direction = move_direction*speed;
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                //move_direction.y = 1*jump_speed;
+                jump_flag = true;
+            }
             // controller.SimpleMove(new Vector3(0f, 0f, 0f));
             //if(!stop)controller.Move(transform.forward * speed);
-            if(!stop)controller.Move(move_direction*speed*Time.deltaTime);
+            if(!stop)controller.Move(move_direction*Time.deltaTime);
             animator_control.SetBool("is_moving", is_moving);
+            animator_control.SetBool("is_jumping", jump_flag);
             
-        }
+        }       
+                
         move_direction = Vector3.zero;
         move_direction.y += gravity;
-        if(!stop)controller.Move(move_direction);
+        if(!stop)controller.Move(move_direction*Time.deltaTime);
+        
+        
         
     }
 }
-
 

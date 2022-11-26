@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class spawning : MonoBehaviour
 {   
-    public GameObject[]  spawns;
-    int no_of_spawns = 30;
+    private GameObject[]  spawns;
+    public GameObject[] trash;
+    int no_of_spawns = 100;
 
-    public GameObject rubbish;
+    //public GameObject rubbish;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +26,12 @@ public class spawning : MonoBehaviour
             for(int i = 0; i < no_of_spawns && i < spawns.Length; i++)
             {
                 int index = Random.Range(0, spawns.Length);
+                int trash_index = Random.Range(0, trash.Length);
+
                 if(!markers[index])
                 {
                     markers[index] = true;
-                    Instantiate(rubbish, spawns[index].transform.position, Quaternion.identity);
+                    Instantiate(trash[trash_index], spawns[index].transform.position, Quaternion.identity);
                 }
                 else
                 {
@@ -37,7 +40,7 @@ public class spawning : MonoBehaviour
                         if(!markers[j])
                         {
                             markers[j] = true;
-                            Instantiate(rubbish, spawns[j].transform.position, Quaternion.identity);
+                            Instantiate(trash[trash_index], spawns[j].transform.position, Quaternion.identity);
                         }
                     }
                 }
