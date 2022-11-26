@@ -66,7 +66,7 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     private bool turnLeft, turnRight, stop;
-    private float speed = 5f;
+    private float speed = 10f;
     private CharacterController controller;
     private Vector3 move_direction = Vector3.zero;
     private float gravity = -3;

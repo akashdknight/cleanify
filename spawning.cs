@@ -5,7 +5,7 @@ using UnityEngine;
 public class spawning : MonoBehaviour
 {   
     public GameObject[]  spawns;
-    int no_of_spawns = 6;
+    int no_of_spawns = 30;
 
     public GameObject rubbish;
     // Start is called before the first frame update
