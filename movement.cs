@@ -34,6 +34,19 @@ public class movement : MonoBehaviour
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public Animator animator_control;
+
+    void OnControllerColliderHit(ControllerColliderHit info)
+    {
+        if(info.gameObject.tag == "obstacle")
+        {
+            // animator_control.SetBool("is_moving", false);   
+            // FindObjectOfType<movement>().enabled = false;
+            FindObjectOfType<timecounting>().seconds = 0    ;
+
+            Debug.Log("shi me hua hain");         
+        } 
+        //Debug.Log("Collision toh hua hain bhai");
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void Start()
     {

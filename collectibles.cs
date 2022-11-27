@@ -8,9 +8,12 @@ public class collectibles : MonoBehaviour
 
     void OnTriggerEnter(Collider player)
     {   
-        FindObjectOfType<scoresheet>().score+=1;
-        gameObject.SetActive(false);
-        Debug.Log("Collected");
+        if(player.GetComponent<Collider>().tag == "player")
+        {
+            FindObjectOfType<scoresheet>().score+=1;
+            gameObject.SetActive(false);
+            Debug.Log("Collected");
+        }
     }
 
     public int  rotatespeed = 1;

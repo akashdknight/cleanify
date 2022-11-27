@@ -1,3 +1,5 @@
+//attached to Canvas > Time
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,9 +34,10 @@ public class timecounting : MonoBehaviour
         else
         {
             deducting = true;
-            FindObjectOfType<movement>().enabled = false;
             FindObjectOfType<movement>().animator_control.SetBool("is_moving", false);
-            FindObjectOfType<camera_follow>().enabled = false;
+            FindObjectOfType<gamemanager>().game_over();
+            // FindObjectOfType<movement>().enabled = false;
+            // FindObjectOfType<camera_follow>().enabled = false;
         }
     }
 }
