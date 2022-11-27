@@ -5,6 +5,8 @@ public class scoresheet : MonoBehaviour
 {
     public int score = 0;
     public TextMeshProUGUI scoretext;
+    public TextMeshProUGUI targettext;
+
 
     void Start()
     {
@@ -15,6 +17,8 @@ public class scoresheet : MonoBehaviour
     void Update()
     {           
         scoretext.text = "Score : " + score.ToString();
+        float target = FindObjectOfType<gamemanager>().target;
+        targettext.text = target.ToString();
         //Debug.Log(playerpos.position.x);
     }
 }

@@ -3,19 +3,16 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     private bool turnLeft, turnRight, stop;
-    private float speed = 10f;
+    public float speed = 10f;
     private CharacterController controller;
     private Vector3 move_direction = Vector3.zero;
     private float gravity = -3f;
-    private float angle = 0;
-
-    // private float jump_speed = 3f;
-    // float height = 9f;
+    private float angle = 0;   
     //0 facing -x
     //90 facing +z
     //180 facing +x
     //270 facing -z
-    // Start is called before the first frame update
+    
 
     public void move_forward(int side)
     {
@@ -41,17 +38,32 @@ public class movement : MonoBehaviour
         {
             // animator_control.SetBool("is_moving", false);   
             // FindObjectOfType<movement>().enabled = false;
-            FindObjectOfType<timecounting>().seconds = 0    ;
+            FindObjectOfType<timecounting>().seconds = 0;
 
             Debug.Log("shi me hua hain");         
         } 
         //Debug.Log("Collision toh hua hain bhai");
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // public int player_level = 1;
+    // public int game_level = 1;
+    // public int coins = 0;
+    // public int spd = speed;
+    // public int high_score = 0;
+
+    // void saveplayer()
+    // {
+    //     savefile.SavePlayer(this);
+    // }
+
+////////////////////////////////////////////////////////////////    
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator_control = GetComponent<Animator>();
+        
+        
     }
 
     // Update is called once per frame

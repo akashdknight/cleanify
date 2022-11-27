@@ -2,22 +2,22 @@ using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public static class SaveSystem
+public static class savefile
 {
-    public static void SavePlayer (Player player)
+    public static void SavePlayer (metadata info)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/cleanify_player.fun";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         //file name in which playerdata is stored.
-        PlayerData data = new PlayerData(player);
+        playerdata data = new playerdata(info);
 
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
-    public static PlayerData LoadPlayer ()
+    public static playerdata LoadPlayer ()
     {
         string path = Application.persistentDataPath + "/cleanify_player.fun";
         if (File.Exists(path))
@@ -25,7 +25,7 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            playerdata data = formatter.Deserialize(stream) as playerdata;
             stream.Close();
 
             return data;

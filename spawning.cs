@@ -8,8 +8,8 @@ public class spawning : MonoBehaviour
     public GameObject[] trash;
     public GameObject[] obstacle;
 
-    int no_of_spawns = 200;
-    int obstacle_spawns = 50;
+    int no_of_spawns = 400;
+    int obstacle_spawns = 80;
 
     Vector3 offset = new Vector3(0,1,0);
 

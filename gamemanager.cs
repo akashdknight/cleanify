@@ -7,6 +7,11 @@ public class gamemanager : MonoBehaviour
 {
     public static gamemanager Instance;
     public int score;
+    public float speed;
+
+    public float level = 1;
+    public float numberofspawns = 400;
+    public float target = 50;  ///// isko change kra hai...
 
     private void Awake() 
     {   
@@ -21,17 +26,38 @@ public class gamemanager : MonoBehaviour
 
     public void start_game()
     {
-        SceneManager.LoadScene(0);       
+        SceneManager.LoadScene(1);    
+        speed = FindObjectOfType<movement>().speed;   
         FindObjectOfType<scoresheet>().score = 0;
-        FindObjectOfType<timecounting>().seconds = 30;
+        FindObjectOfType<timecounting>().seconds = 120;
+
+        int x = FindObjectOfType<metadata>().game_level;
+        level = level > x ? level : x;
+        target = target + 50;
+        Debug.Log(level);
     }
 
     public void  game_over()
     {
+        FindObjectOfType<metadata>().saveplayer();
         FindObjectOfType<movement>().enabled = false;
         FindObjectOfType<camera_follow>().enabled = false;        
         score = FindObjectOfType<scoresheet>().score;
-        SceneManager.LoadScene(1);
+
+        if(score >= target)
+        {
+            SceneManager.LoadScene(3); //level completed wala
+        }
+        else
+        {
+            SceneManager.LoadScene(2);
+        }
         //FindObjectOfType<gameover>().show_data(score);                
+    }
+    
+
+    void Start() 
+    {
+        //start_game();
     }
 }
